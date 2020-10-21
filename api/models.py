@@ -113,3 +113,20 @@ class Answer(models.Model):
 
     def __str__(self):
         return f'{self.question.id}: {self.option}'
+
+
+class CorrectAnswer(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="correct_answers",
+        related_query_name="correct_answer",
+    )
+    correct_option = models.OneToOneField(
+        Answer,
+        on_delete=models.CASCADE,
+        related_name='correct_answers',
+    )
+
+    def __str__(self):
+        return f'{self.question.id}: {self.correct_option.id}'
