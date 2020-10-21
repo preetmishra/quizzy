@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -68,3 +69,26 @@ class Quiz(models.Model):
 
     class Meta:
         verbose_name_plural = 'Quizzes'
+
+
+class Question(models.Model):
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="questions",
+        related_query_name="question",
+    )
+    desc = models.CharField(
+        max_length=255,
+        verbose_name='Description',
+        unique=True,
+    )
+    points = models.PositiveSmallIntegerField(
+        default=1,
+        validators=[MaxValueValidator(10), MinValueValidator(1)],
+        help_text='Sets points for a question. A positive integer with maximum'
+                  ' value of 10.',
+    )
+
+    def __str__(self):
+        return self.desc
