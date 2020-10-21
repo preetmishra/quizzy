@@ -69,3 +69,10 @@ class TeacherSerializer(serializers.ModelSerializer):
 
         instance.user.save()
         return instance
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Course
+        fields = ['id', 'name', 'teacher']
+        read_only_fields = ['teacher']

@@ -11,3 +11,16 @@ class UpdateTeacherAccount(permissions.BasePermission):
             return True
 
         return obj.user.is_teacher and obj.user.id == request.user.id
+
+
+class UpdateCourse(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        """
+        Checks whether a teacher is trying to update their own course.
+        """
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        return (obj.teacher.user.is_teacher
+                and obj.teacher.user.id == request.user.id)

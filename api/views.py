@@ -2,6 +2,7 @@ from django.http import Http404
 from rest_framework import status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
@@ -31,3 +32,13 @@ class TeacherLoginApiView(ObtainAuthToken):
     """
 
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+class CourseViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CourseSerializer
+    queryset = models.Course.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateCourse, IsAuthenticated)
+
+    def perform_create(self, serializer):
+        serializer.save(teacher=self.request.user.teacher)
