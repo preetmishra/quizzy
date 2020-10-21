@@ -31,3 +31,20 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Course(models.Model):
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name="courses",
+        related_query_name="course",
+    )
+    name = models.CharField(
+        max_length=128,
+        verbose_name='Course Name',
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.name
