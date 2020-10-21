@@ -27,7 +27,7 @@ class Teacher(models.Model):
         User,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='teachers'
+        related_name='teacher'
     )
 
     def __str__(self):
@@ -56,7 +56,7 @@ class Quiz(models.Model):
         Course,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='quizzes'
+        related_name='quiz'
     )
     name = models.CharField(
         max_length=128,
@@ -125,7 +125,7 @@ class CorrectAnswer(models.Model):
     correct_option = models.OneToOneField(
         Answer,
         on_delete=models.CASCADE,
-        related_name='correct_answers',
+        related_name='correct_answer',
     )
 
     def __str__(self):
