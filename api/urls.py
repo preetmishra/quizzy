@@ -9,4 +9,5 @@ router.register('teacher', views.TeacherViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('login/teacher/', views.TeacherLoginApiView.as_view()),
 ]
