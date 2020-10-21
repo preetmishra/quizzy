@@ -19,3 +19,15 @@ class User(AbstractUser):
         help_text='Designates whether this user should be treated as a '
                   'student.',
     )
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='teachers'
+    )
+
+    def __str__(self):
+        return self.user.username
