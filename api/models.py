@@ -92,3 +92,24 @@ class Question(models.Model):
 
     def __str__(self):
         return self.desc
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="answers",
+        related_query_name="answer",
+    )
+    option = models.CharField(max_length=255)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['question', 'option'],
+                name='unique_option',
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.question.id}: {self.option}'
