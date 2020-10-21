@@ -48,3 +48,23 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Quiz(models.Model):
+    course = models.OneToOneField(
+        Course,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='quizzes'
+    )
+    name = models.CharField(
+        max_length=128,
+        verbose_name='Quiz Name',
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Quizzes'
