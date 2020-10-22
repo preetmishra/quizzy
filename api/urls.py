@@ -15,4 +15,5 @@ router.register('correctanswer', views.CorrectAnswerViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('login/teacher/', views.TeacherLoginApiView.as_view()),
+    path('auth/user', views.UserTokenApiView.as_view()),
 ]

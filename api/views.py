@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.db.utils import IntegrityError
-from rest_framework import status, viewsets
+from rest_framework import generics, status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ParseError
@@ -34,6 +34,14 @@ class TeacherLoginApiView(ObtainAuthToken):
     """
 
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+class UserTokenApiView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated, ]
+    serializer_class = serializers.UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 class CourseViewSet(viewsets.ModelViewSet):
