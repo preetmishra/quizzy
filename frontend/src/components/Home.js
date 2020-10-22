@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   render() {
@@ -7,12 +8,12 @@ class Home extends Component {
         <div className="card text-center my-5 py-5 px-2 border-light">
           <div className="card-body">
             <h1 className="card-title mb-3">Who are you?</h1>
-            <a href="#" className="btn btn-primary mr-1">
+            <Link to="/teacher" className="btn btn-primary mr-1">
               Teacher
-            </a>
-            <a href="#" className="btn btn-primary ml-1">
+            </Link>
+            <Link to="/student" className="btn btn-primary ml-1">
               Student
-            </a>
+            </Link>
           </div>
         </div>
       </Fragment>
