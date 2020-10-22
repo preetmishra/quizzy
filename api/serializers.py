@@ -98,3 +98,14 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Question
         fields = ['id', 'quiz', 'desc', 'points']
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    question = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=models.Question.objects.all(),
+    )
+
+    class Meta:
+        model = models.Answer
+        fields = ['id', 'question', 'option']

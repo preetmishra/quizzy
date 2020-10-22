@@ -50,3 +50,18 @@ class UpdateQuestion(permissions.BasePermission):
 
         return (obj.quiz.course.teacher.user.is_teacher
                 and obj.quiz.course.teacher.user.id == request.user.id)
+
+
+class UpdateAnswer(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        """
+        Checks whether a teacher is trying to update their own answers.
+        """
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        return (
+            obj.question.quiz.course.teacher.user.is_teacher
+            and obj.question.quiz.course.teacher.user.id == request.user.id
+        )

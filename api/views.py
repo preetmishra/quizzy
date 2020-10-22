@@ -64,3 +64,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = models.Question.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateQuestion, IsAuthenticated)
+
+
+class AnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.AnswerSerializer
+    queryset = models.Answer.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateAnswer, IsAuthenticated)
