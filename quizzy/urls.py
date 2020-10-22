@@ -37,6 +37,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', include('frontend.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/docs/', schema_view.with_ui('redoc'), name='docs'),
