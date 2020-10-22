@@ -109,3 +109,27 @@ class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Answer
         fields = ['id', 'question', 'option']
+
+
+class CorrectAnswerSerializer(serializers.ModelSerializer):
+    question = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=models.Question.objects.all(),
+    )
+    correct_option = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=models.Answer.objects.all(),
+    )
+
+    class Meta:
+        model = models.Answer
+        fields = ['id', 'question', 'correct_option']
+
+    def create(self, validated_data):
+        question = validated_data.get('question')
+        correct_option = validated_data.get('correct_option')
+
+        return models.CorrectAnswer.objects.create(
+            question=question,
+            correct_option=correct_option
+        )

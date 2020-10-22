@@ -71,3 +71,10 @@ class AnswerViewSet(viewsets.ModelViewSet):
     queryset = models.Answer.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateAnswer, IsAuthenticated)
+
+
+class CorrectAnswerViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CorrectAnswerSerializer
+    queryset = models.CorrectAnswer.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateCorrectAnswer, IsAuthenticated)
