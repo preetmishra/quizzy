@@ -57,3 +57,10 @@ class QuizViewSet(viewsets.ModelViewSet):
             return super().create(request)
         except IntegrityError as e:
             raise ParseError('A quiz with this course ID already exists.')
+
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.QuestionSerializer
+    queryset = models.Question.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateQuestion, IsAuthenticated)
