@@ -76,3 +76,14 @@ class CourseSerializer(serializers.ModelSerializer):
         model = models.Course
         fields = ['id', 'name', 'teacher']
         read_only_fields = ['teacher']
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    course = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=models.Course.objects.all(),
+    )
+
+    class Meta:
+        model = models.Quiz
+        fields = ['course', 'name']

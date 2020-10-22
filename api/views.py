@@ -1,7 +1,9 @@
 from django.http import Http404
+from django.db.utils import IntegrityError
 from rest_framework import status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.exceptions import ParseError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -42,3 +44,16 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(teacher=self.request.user.teacher)
+
+
+class QuizViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.QuizSerializer
+    queryset = models.Quiz.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateQuiz, IsAuthenticated)
+
+    def create(self, request):
+        try:
+            return super().create(request)
+        except IntegrityError as e:
+            raise ParseError('A quiz with this course ID already exists.')
