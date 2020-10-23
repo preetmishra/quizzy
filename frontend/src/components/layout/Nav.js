@@ -20,7 +20,18 @@ class Nav extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="collapsenav">
-            <ul className="navbar-nav ml-auto mr-0"></ul>
+            <ul className="navbar-nav ml-auto mr-0">
+              <li className="nav-item">
+                <a className="nav-link" href="api">
+                  API
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="api/docs/">
+                  Docs
+                </a>
+              </li>
+            </ul>
           </div>
         </nav>
       </div>
