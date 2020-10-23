@@ -45,15 +45,12 @@ export const loginTeacher = (username, password) => (dispatch) => {
   axios
     .post("api/login/teacher/", body, config)
     .then((res) => {
-      console.log("From Login");
-      console.log(res.data);
       dispatch({
         type: TEACHER_LOGIN_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: TEACHER_LOGIN_FAIL,
       });
@@ -75,8 +72,6 @@ export const registerTeacher = (firstName, lastName, username, password) => (
   const body = JSON.stringify({
     user: { first_name: firstName, last_name: lastName, username, password },
   });
-  console.log("From action");
-  console.log(body);
 
   axios
     .post("api/teacher/", body, config)
@@ -87,7 +82,6 @@ export const registerTeacher = (firstName, lastName, username, password) => (
       });
     })
     .catch((err) => {
-      console.log(JSON.stringify(err));
       dispatch({
         type: TEACHER_REGISTER_FAIL,
       });
