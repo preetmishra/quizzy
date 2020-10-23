@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginStudent } from "../../actions/studentAuth";
 
 class StudentLogin extends Component {
   constructor(props) {
@@ -18,9 +21,13 @@ class StudentLogin extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.props.loginStudent(this.state.username, this.state.password);
   };
 
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     const { username, password } = this.state;
     return (
       <div className="card card-body border-top-0">
@@ -58,4 +65,8 @@ class StudentLogin extends Component {
   }
 }
 
-export default StudentLogin;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.studentAuth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { loginStudent })(StudentLogin);

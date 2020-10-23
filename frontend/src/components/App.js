@@ -9,11 +9,13 @@ import Student from "./student/Student";
 import { Provider } from "react-redux";
 
 import { loadTeacher } from "../actions/teacherAuth";
+import { loadStudent } from "../actions/studentAuth";
 import store from "../store";
 
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadTeacher());
+    store.dispatch(loadStudent());
   }
 
   render() {
