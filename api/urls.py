@@ -6,6 +6,7 @@ from . import views
 
 router = DefaultRouter()
 router.register('teacher', views.TeacherViewSet)
+router.register('student', views.StudentViewSet)
 router.register('course', views.CourseViewSet)
 router.register('quiz', views.QuizViewSet)
 router.register('question', views.QuestionViewSet)
@@ -15,5 +16,6 @@ router.register('correctanswer', views.CorrectAnswerViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('login/teacher/', views.TeacherLoginApiView.as_view()),
+    path('login/student/', views.StudentLoginApiView.as_view()),
     path('auth/user', views.UserTokenApiView.as_view()),
 ]

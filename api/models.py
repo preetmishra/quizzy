@@ -34,6 +34,18 @@ class Teacher(models.Model):
         return self.user.username
 
 
+class Student(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='student'
+    )
+
+    def __str__(self):
+        return self.user.username
+
+
 class Course(models.Model):
     teacher = models.ForeignKey(
         Teacher,

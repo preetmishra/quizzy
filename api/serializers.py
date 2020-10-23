@@ -71,6 +71,53 @@ class TeacherSerializer(serializers.ModelSerializer):
         return instance
 
 
+class StudentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = models.Student
+        fields = ['user']
+
+    def create(self, validated_data):
+        user_data = validated_data.get('user')
+        password = user_data.pop('password')
+
+        user = models.User(**user_data)
+
+        # Hash and set the password.
+        if password is not None:
+            user.set_password(password)
+
+        # Make this user a Student.
+        user.is_student = True
+
+        user.save()
+        student = models.Student.objects.create(user=user)
+        return student
+
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop('user', {})
+
+        instance.user.username = user_data.get(
+            'username',
+            instance.user.username,
+        )
+        instance.user.first_name = user_data.get(
+            'first_name',
+            instance.user.first_name,
+        )
+        instance.user.last_name = user_data.get(
+            'last_name',
+            instance.user.last_name,
+        )
+
+        if 'password' in user_data:
+            instance.user.set_password(user_data.get('password'))
+
+        instance.user.save()
+        return instance
+
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Course

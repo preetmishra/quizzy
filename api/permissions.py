@@ -13,6 +13,18 @@ class UpdateTeacherAccount(permissions.BasePermission):
         return obj.user.is_teacher and obj.user.id == request.user.id
 
 
+class UpdateStudentAccount(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        """
+        Checks whether the student is trying to edit their own account.
+        """
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        return obj.user.is_student and obj.user.id == request.user.id
+
+
 class UpdateCourse(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         """
