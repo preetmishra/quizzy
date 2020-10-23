@@ -3,3 +3,5 @@ drf-yasg==1.17.1
 django==3.1.2
 django-cors-headers==3.5.0
 djangorestframework==3.11
+gunicorn==20.0.4
+django-heroku==0.3.1
