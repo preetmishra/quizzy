@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { registerTeacher } from "../../actions/teacherAuth";
 
 class TeacherRegister extends Component {
   constructor(props) {
@@ -20,9 +23,14 @@ class TeacherRegister extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const { firstName, lastName, username, password } = this.state;
+    this.props.registerTeacher(firstName, lastName, username, password);
   };
 
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     const { username, password, firstName, lastName } = this.state;
     return (
       <div className="card card-body border-top-0">
@@ -80,4 +88,8 @@ class TeacherRegister extends Component {
   }
 }
 
-export default TeacherRegister;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.teacherAuth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { registerTeacher })(TeacherRegister);
